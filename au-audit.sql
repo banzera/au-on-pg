@@ -1,0 +1,626 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: tblAnalysis; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblAnalysis" (
+    "AnalysisID" integer,
+    "CustomerID" integer,
+    "AnalysisDate" timestamp with time zone,
+    "StartAnalysisDate" timestamp with time zone,
+    "EndAnalysisDate" timestamp with time zone,
+    "AnalysisSplrID" integer
+);
+
+
+ALTER TABLE public."tblAnalysis" OWNER TO au_audit;
+
+--
+-- Name: tblAnalysisItems; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblAnalysisItems" (
+    "AnalysisItemsID" integer,
+    "SKUID" integer,
+    "AOrderDate" timestamp with time zone,
+    "AOrderQuant" integer,
+    "AOrderPricePer" double precision,
+    "CustomerID" integer,
+    "SplrID" integer,
+    "VSKU" character varying(255),
+    "SplrID2" integer,
+    "AnalysisID" integer
+);
+
+
+ALTER TABLE public."tblAnalysisItems" OWNER TO au_audit;
+
+--
+-- Name: tblBank; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblBank" (
+    "BankID" integer,
+    "BankName" character varying(255),
+    "BankBusinessName" character varying(255),
+    "BankFIrst" character varying(255),
+    "BankLast" character varying(255),
+    "BankSal" character varying(255),
+    "BankTitle" character varying(255),
+    "BankAddress" character varying(255),
+    "BankCity" character varying(255),
+    "BankSt" character varying(255),
+    "BankZip" character varying(255),
+    "BankPhone" character varying(255),
+    "BankFax" character varying(255),
+    "BankEmail" character varying(255),
+    "BankPrimaryContact1" character varying(255),
+    "BankPhone1" character varying(255),
+    "BankPhoneType1" character varying(255),
+    "BankEmail1" character varying(255),
+    "BankPrimaryContact2" character varying(255),
+    "BankPhone2" character varying(255),
+    "BankPhoneType2" character varying(255),
+    "BankEmail2" character varying(255),
+    "BankAcctNo" character varying(255),
+    "BankAcctName" character varying(255),
+    "BankNotes" text,
+    "BankDateModified" timestamp with time zone
+);
+
+
+ALTER TABLE public."tblBank" OWNER TO au_audit;
+
+--
+-- Name: tblCategory; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblCategory" (
+    "CategoryID" integer,
+    "CategoryDesc" character varying(255)
+);
+
+
+ALTER TABLE public."tblCategory" OWNER TO au_audit;
+
+--
+-- Name: tblCustomer; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblCustomer" (
+    "CustID" integer,
+    "CustName" character varying(255),
+    "CustBusinessName" character varying(255),
+    "CustFIrst" character varying(255),
+    "CustLast" character varying(255),
+    "CustSal" character varying(255),
+    "CustTitle" character varying(255),
+    "CustAddress" character varying(255),
+    "CustCity" character varying(255),
+    "CustSt" character varying(255),
+    "CustZip" character varying(255),
+    "CustPhone" character varying(255),
+    "CustFax" character varying(255),
+    "CustEmail" character varying(255),
+    "CustPrimaryContact1" character varying(255),
+    "CustPhone1" character varying(255),
+    "CustPhoneType1" character varying(255),
+    "CustEmail1" character varying(255),
+    "CustPrimaryContact2" character varying(255),
+    "CustPhone2" character varying(255),
+    "CustPhoneType2" character varying(255),
+    "CustEmail2" character varying(255),
+    "CustTaxRate" real,
+    "CustNotes" text,
+    "CustDateCreated" timestamp with time zone,
+    "CustDateModified" timestamp with time zone,
+    "CustBillingBusinessName" character varying(255),
+    "CustBillingFirst" character varying(255),
+    "CustBillingLast" character varying(255),
+    "CustBillingSal" character varying(255),
+    "CustBillingTitle" character varying(255),
+    "CustBillingAddress" character varying(255),
+    "CustBillingCity" character varying(255),
+    "CustBillingSt" character varying(255),
+    "CustBillingZip" character varying(255),
+    "CustBillingPhone" character varying(255),
+    "CustBillingFax" character varying(255),
+    "CustBillingEmail" character varying(255),
+    "CustBillingSame" boolean,
+    "CustQBO" boolean,
+    "CustCCAuth" boolean,
+    "CustCCLast4" character varying(255),
+    "CustTaxJurisID" integer,
+    "LastRewardDate" timestamp with time zone
+);
+
+
+ALTER TABLE public."tblCustomer" OWNER TO au_audit;
+
+--
+-- Name: tblDCLocUpdate; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblDCLocUpdate" (
+    "DCLocUpdateID" integer,
+    "UserName" character varying(255),
+    "SKUID" integer,
+    "TimeStampScanned" character varying(255),
+    "TimeStampRcvd" character varying(255),
+    "DCLoc" character varying(255)
+);
+
+
+ALTER TABLE public."tblDCLocUpdate" OWNER TO au_audit;
+
+--
+-- Name: tblOrder; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblOrder" (
+    "OrderID" integer,
+    "OrderDate" timestamp with time zone,
+    "OrderBatch" character varying(255),
+    "CustID" integer,
+    "OrderTaxRate" real,
+    "OrderDeliveredDate" timestamp with time zone,
+    "OrderDeliverdFrom" character varying(255),
+    "OrderDeliveredTo" character varying(255),
+    "OrderShipMethod" character varying(255),
+    "OrderReceiptHL" character varying(255),
+    "OrderDateInvoiced" timestamp with time zone,
+    "OrderDatePaid" timestamp with time zone,
+    "OrderPaymentMethod" character varying(255),
+    "OrderPaymentAmount" double precision,
+    "OrderNotes" text,
+    "OrderCCDate" timestamp with time zone,
+    "PreOrderCompleteDate" timestamp with time zone,
+    "OrderConfirmDate" timestamp with time zone
+);
+
+
+ALTER TABLE public."tblOrder" OWNER TO au_audit;
+
+--
+-- Name: tblOrderDeposit; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblOrderDeposit" (
+    "ODepositID" integer,
+    "ODepositDate" timestamp with time zone,
+    "ODepositBatch" character varying(255)
+);
+
+
+ALTER TABLE public."tblOrderDeposit" OWNER TO au_audit;
+
+--
+-- Name: tblOrderItems; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblOrderItems" (
+    "OrderItemsID" integer,
+    "SKUID" integer,
+    "POID" integer,
+    "OrderID" integer,
+    "OrderQuant" integer,
+    "OrderPricePer" double precision,
+    "OrderPriceTotal" double precision,
+    "OrderTaxRate" real,
+    "OrderTaxTotal" double precision,
+    "OrderDeliveryCostTotal" double precision,
+    "OrderFeesTotal" double precision,
+    "OrderGrandTotal" double precision,
+    "OrderItemsDeliveredDate" timestamp with time zone,
+    "OrderDeliveredQuant" integer,
+    "OrderRetailTotal" double precision
+);
+
+
+ALTER TABLE public."tblOrderItems" OWNER TO au_audit;
+
+--
+-- Name: tblOrderPmts; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblOrderPmts" (
+    "OPmtsID" integer,
+    "OPmtsDate" timestamp with time zone,
+    "OPmtsBatch" character varying(255)
+);
+
+
+ALTER TABLE public."tblOrderPmts" OWNER TO au_audit;
+
+--
+-- Name: tblOrderPmtsItems; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblOrderPmtsItems" (
+    "OPmtsItemsID" integer,
+    "OPmtsID" integer,
+    "OrderItemsID" integer,
+    "OPmtsTotal" double precision,
+    "ODepositID" integer
+);
+
+
+ALTER TABLE public."tblOrderPmtsItems" OWNER TO au_audit;
+
+--
+-- Name: tblPercent; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblPercent" (
+    "Percent" double precision
+);
+
+
+ALTER TABLE public."tblPercent" OWNER TO au_audit;
+
+--
+-- Name: tblPreOrder; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblPreOrder" (
+    "PreOrderID" integer,
+    "PreOrderDate" timestamp with time zone,
+    "PreOrderBatch" character varying(255),
+    "CustID" integer,
+    "PreOrderNotes" text,
+    "PreOrderSH1" double precision,
+    "PreOrderSH2" double precision,
+    "PreOrderVendorID" integer,
+    "OrderID" integer,
+    "OrderCreateDate" timestamp with time zone,
+    "PreOrderAnalysisDate" timestamp with time zone,
+    "ConfirmationDate" timestamp with time zone,
+    "PreOrderCheck" timestamp with time zone
+);
+
+
+ALTER TABLE public."tblPreOrder" OWNER TO au_audit;
+
+--
+-- Name: tblPreOrderCodes; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblPreOrderCodes" (
+    "PreOrderCodeID" integer,
+    "PreOrderCode" character varying(255),
+    "PreOrderCodeDesc" character varying(255)
+);
+
+
+ALTER TABLE public."tblPreOrderCodes" OWNER TO au_audit;
+
+--
+-- Name: tblPreOrderItems; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblPreOrderItems" (
+    "PreOrderItemsID" integer,
+    "PreOrderID" integer,
+    "POID" integer,
+    "SKUID1" integer,
+    "SKUID2" integer,
+    "OrderQuant1" integer,
+    "OrderQuant2" integer,
+    "OrderPricePer1" double precision,
+    "OrderPricePer2" double precision,
+    "OrderPriceTotal1" double precision,
+    "OrderPriceTotal2" double precision,
+    "OrderAUPricePer" double precision,
+    "PreOrderItemCode" integer,
+    "OrderDate" timestamp with time zone,
+    "PreOrderNotes" text
+);
+
+
+ALTER TABLE public."tblPreOrderItems" OWNER TO au_audit;
+
+--
+-- Name: tblPurchaseOrder; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblPurchaseOrder" (
+    "POID" integer,
+    "PODate" timestamp with time zone,
+    "POBatch" character varying(255),
+    "SplrID" integer,
+    "SplrID2" integer,
+    "POShipDate" timestamp with time zone,
+    "POShipType" character varying(255),
+    "POTrackingNo" character varying(255),
+    "PORcvdBy" character varying(255),
+    "PODatePaid" timestamp with time zone,
+    "POMethodPaid" character varying(255),
+    "POPaymentNo" character varying(255),
+    "POAmountPaid" double precision,
+    "PONotes" text,
+    "POSplrOrderNo" character varying(255),
+    "POCheckSentDate" timestamp with time zone
+);
+
+
+ALTER TABLE public."tblPurchaseOrder" OWNER TO au_audit;
+
+--
+-- Name: tblPurchaseOrderItems; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblPurchaseOrderItems" (
+    "POItemsID" integer,
+    "POID" integer,
+    "SKUID" integer,
+    "POOrderQuant" integer,
+    "POOrderPrice" double precision,
+    "POOrderTax" double precision,
+    "POOrderShipping" double precision,
+    "POOrderFees" double precision,
+    "POOrderTotal" double precision,
+    "POOrderPricePer" double precision,
+    "POOrderTaxPer" double precision,
+    "POOrderShippingPer" double precision,
+    "POOrderFeesPer" double precision,
+    "POOrderTotalPer" double precision,
+    "POOrderRcvdDate" timestamp with time zone,
+    "POOrderRcvdQuant" integer,
+    "POOrderExpiration" timestamp with time zone,
+    "POOrderRebateDeadline" timestamp with time zone,
+    "POOrderRebateSubmitted" timestamp with time zone,
+    "POOrderRebate" boolean,
+    "POOrderRebateNotes" character varying(255)
+);
+
+
+ALTER TABLE public."tblPurchaseOrderItems" OWNER TO au_audit;
+
+--
+-- Name: tblPurchaseType; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblPurchaseType" (
+    "PurchaseTypeID" integer,
+    "PurchaseType" character varying(255)
+);
+
+
+ALTER TABLE public."tblPurchaseType" OWNER TO au_audit;
+
+--
+-- Name: tblSKU; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblSKU" (
+    "SKUID" integer,
+    "SKU" character varying(255),
+    "Manf" character varying(255),
+    "ItemNo" character varying(255),
+    "SKUDesc" character varying(255),
+    "UnitWeight" character varying(255),
+    "CategoryID" integer,
+    "SKUMinUnits" integer,
+    "SKUMinUnitsType" character varying(255),
+    "DCLoc" character varying(255),
+    "SKUMinPerCS" integer,
+    "VNo01" integer,
+    "VSKU01" character varying(255),
+    "VHL01" text,
+    "VNo02" integer,
+    "VSKU02" character varying(255),
+    "VHL02" text,
+    "VNo03" integer,
+    "VSKU03" character varying(255),
+    "VHL03" text,
+    "VNo04" integer,
+    "VSKU04" character varying(255),
+    "VHL04" text,
+    "VNo05" integer,
+    "VSKU05" character varying(255),
+    "VHL05" text,
+    "VNo06" integer,
+    "VSKU06" character varying(255),
+    "VHL06" text,
+    "VNo07" integer,
+    "VSKU07" character varying(255),
+    "VHL07" text,
+    "VNo08" integer,
+    "VSKU08" character varying(255),
+    "VHL08" text,
+    "VNo09" integer,
+    "VSKU09" character varying(255),
+    "VHL09" text,
+    "VNo10" integer,
+    "VSKU10" character varying(255),
+    "VHL10" text,
+    "SKUHighPrice" double precision,
+    "SKUHighPriceVNo" integer,
+    "SKUHighPriceDate" timestamp with time zone,
+    "SKUClassID" integer,
+    "SKUMaxTemp" integer,
+    "SKUMinTemp" integer,
+    "SKUNotes" text
+);
+
+
+ALTER TABLE public."tblSKU" OWNER TO au_audit;
+
+--
+-- Name: tblSKUClass; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblSKUClass" (
+    "SKUClassID" integer,
+    "SKUClassDesc" character varying(255)
+);
+
+
+ALTER TABLE public."tblSKUClass" OWNER TO au_audit;
+
+--
+-- Name: tblSKUCustInfo; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblSKUCustInfo" (
+    "SKUCustInfoID" integer,
+    "SKUID" integer,
+    "CustID" integer,
+    "SKUOnly" boolean,
+    "SKUNever" boolean,
+    "SKUOnlyDate" timestamp with time zone,
+    "SKUNeverDate" timestamp with time zone,
+    "SKUCustNotes" text
+);
+
+
+ALTER TABLE public."tblSKUCustInfo" OWNER TO au_audit;
+
+--
+-- Name: tblShipper; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblShipper" (
+    "ShipID" integer,
+    "ShipName" character varying(255),
+    "ShipFIrst" character varying(255),
+    "ShipLast" character varying(255),
+    "ShipBusinessName" character varying(255),
+    "ShipAddress" character varying(255),
+    "ShipCity" character varying(255),
+    "ShipSt" character varying(255),
+    "ShipZip" character varying(255),
+    "ShipPhone1" character varying(255),
+    "ShipPhone2" character varying(255),
+    "ShipFax" character varying(255),
+    "ShipEmail1" character varying(255),
+    "ShipEmail2" character varying(255),
+    "ShipPrimaryContact1" character varying(255),
+    "ShipPrimaryContact2" character varying(255)
+);
+
+
+ALTER TABLE public."tblShipper" OWNER TO au_audit;
+
+--
+-- Name: tblSupplier; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblSupplier" (
+    "SplrID" integer,
+    "SplrName" character varying(255),
+    "SplrFIrst" character varying(255),
+    "SplrLast" character varying(255),
+    "SplrBusinessName" character varying(255),
+    "SplrAddress" character varying(255),
+    "SplrCity" character varying(255),
+    "SplrSt" character varying(255),
+    "SplrZip" character varying(255),
+    "SplrWebsite" character varying(255),
+    "SplrEmail" character varying(255),
+    "SplrPhone" character varying(255),
+    "SplrFax" character varying(255),
+    "SplrPrimaryContact1" character varying(255),
+    "SplrPhone1" character varying(255),
+    "SplrEmail1" character varying(255),
+    "SplrPrimaryContact2" character varying(255),
+    "SplrPhone2" character varying(255),
+    "SplrEmail2" character varying(255),
+    "SplrTaxID" character varying(255),
+    "SplrQBO" boolean,
+    "SplrNotes" text
+);
+
+
+ALTER TABLE public."tblSupplier" OWNER TO au_audit;
+
+--
+-- Name: tblSupplierPmts; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblSupplierPmts" (
+    "SPmtID" integer,
+    "SPmtDate" timestamp with time zone,
+    "SPmtBatch" character varying(255)
+);
+
+
+ALTER TABLE public."tblSupplierPmts" OWNER TO au_audit;
+
+--
+-- Name: tblSupplierPmtsItems; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblSupplierPmtsItems" (
+    "SPmtsItemsID" integer,
+    "SPmtsID" integer,
+    "POItemsID" integer,
+    "SPmtsTotal" double precision
+);
+
+
+ALTER TABLE public."tblSupplierPmtsItems" OWNER TO au_audit;
+
+--
+-- Name: tblTaxJurisdiction; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblTaxJurisdiction" (
+    "TJID" integer,
+    "JurisdictionCode" character varying(255),
+    "JurisdictionName" character varying(255),
+    "RateEffDate" timestamp with time zone,
+    "TaxRate" real
+);
+
+
+ALTER TABLE public."tblTaxJurisdiction" OWNER TO au_audit;
+
+--
+-- Name: tblUpdateNA; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblUpdateNA" (
+    "SKUID" integer
+);
+
+
+ALTER TABLE public."tblUpdateNA" OWNER TO au_audit;
+
+--
+-- Name: tblVendor; Type: TABLE; Schema: public; Owner: au_audit
+--
+
+CREATE TABLE public."tblVendor" (
+    "VendorID" integer,
+    "VendorName" character varying(255)
+);
+
+
+ALTER TABLE public."tblVendor" OWNER TO au_audit;
+
+--
+-- PostgreSQL database dump complete
+--
+
