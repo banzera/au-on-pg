@@ -25,7 +25,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public."tblAnalysis" (
-    "AnalysisID" integer,
+    "AnalysisID" integer primary key,
     "CustomerID" integer,
     "AnalysisDate" timestamp with time zone,
     "StartAnalysisDate" timestamp with time zone,
@@ -41,7 +41,7 @@ ALTER TABLE public."tblAnalysis" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblAnalysisItems" (
-    "AnalysisItemsID" integer,
+    "AnalysisItemsID" integer primary key,
     "SKUID" integer,
     "AOrderDate" timestamp with time zone,
     "AOrderQuant" integer,
@@ -61,7 +61,7 @@ ALTER TABLE public."tblAnalysisItems" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblBank" (
-    "BankID" integer,
+    "BankID" integer primary key,
     "BankName" character varying(255),
     "BankBusinessName" character varying(255),
     "BankFIrst" character varying(255),
@@ -97,7 +97,7 @@ ALTER TABLE public."tblBank" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblCategory" (
-    "CategoryID" integer,
+    "CategoryID" integer primary key,
     "CategoryDesc" character varying(255)
 );
 
@@ -109,7 +109,7 @@ ALTER TABLE public."tblCategory" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblCustomer" (
-    "CustID" integer,
+    "CustID" integer primary key,
     "CustName" character varying(255),
     "CustBusinessName" character varying(255),
     "CustFIrst" character varying(255),
@@ -163,7 +163,7 @@ ALTER TABLE public."tblCustomer" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblDCLocUpdate" (
-    "DCLocUpdateID" integer,
+    "DCLocUpdateID" integer primary key,
     "UserName" character varying(255),
     "SKUID" integer,
     "TimeStampScanned" character varying(255),
@@ -179,7 +179,7 @@ ALTER TABLE public."tblDCLocUpdate" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblOrder" (
-    "OrderID" integer,
+    "OrderID" integer primary key,
     "OrderDate" timestamp with time zone,
     "OrderBatch" character varying(255),
     "CustID" integer,
@@ -207,7 +207,7 @@ ALTER TABLE public."tblOrder" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblOrderDeposit" (
-    "ODepositID" integer,
+    "ODepositID" integer primary key,
     "ODepositDate" timestamp with time zone,
     "ODepositBatch" character varying(255)
 );
@@ -220,7 +220,7 @@ ALTER TABLE public."tblOrderDeposit" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblOrderItems" (
-    "OrderItemsID" integer,
+    "OrderItemsID" integer primary key,
     "SKUID" integer,
     "POID" integer,
     "OrderID" integer,
@@ -245,7 +245,7 @@ ALTER TABLE public."tblOrderItems" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblOrderPmts" (
-    "OPmtsID" integer,
+    "OPmtsID" integer primary key,
     "OPmtsDate" timestamp with time zone,
     "OPmtsBatch" character varying(255)
 );
@@ -258,7 +258,7 @@ ALTER TABLE public."tblOrderPmts" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblOrderPmtsItems" (
-    "OPmtsItemsID" integer,
+    "OPmtsItemsID" integer primary key,
     "OPmtsID" integer,
     "OrderItemsID" integer,
     "OPmtsTotal" double precision,
@@ -284,7 +284,7 @@ ALTER TABLE public."tblPercent" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblPreOrder" (
-    "PreOrderID" integer,
+    "PreOrderID" integer primary key,
     "PreOrderDate" timestamp with time zone,
     "PreOrderBatch" character varying(255),
     "CustID" integer,
@@ -307,7 +307,7 @@ ALTER TABLE public."tblPreOrder" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblPreOrderCodes" (
-    "PreOrderCodeID" integer,
+    "PreOrderCodeID" integer primary key,
     "PreOrderCode" character varying(255),
     "PreOrderCodeDesc" character varying(255)
 );
@@ -320,7 +320,7 @@ ALTER TABLE public."tblPreOrderCodes" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblPreOrderItems" (
-    "PreOrderItemsID" integer,
+    "PreOrderItemsID" integer primary key,
     "PreOrderID" integer,
     "POID" integer,
     "SKUID1" integer,
@@ -345,7 +345,7 @@ ALTER TABLE public."tblPreOrderItems" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblPurchaseOrder" (
-    "POID" integer,
+    "POID" integer primary key,
     "PODate" timestamp with time zone,
     "POBatch" character varying(255),
     "SplrID" integer,
@@ -371,7 +371,7 @@ ALTER TABLE public."tblPurchaseOrder" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblPurchaseOrderItems" (
-    "POItemsID" integer,
+    "POItemsID" integer primary key,
     "POID" integer,
     "SKUID" integer,
     "POOrderQuant" integer,
@@ -402,7 +402,7 @@ ALTER TABLE public."tblPurchaseOrderItems" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblPurchaseType" (
-    "PurchaseTypeID" integer,
+    "PurchaseTypeID" integer primary key,
     "PurchaseType" character varying(255)
 );
 
@@ -414,7 +414,7 @@ ALTER TABLE public."tblPurchaseType" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblSKU" (
-    "SKUID" integer,
+    "SKUID" integer primary key,
     "SKU" character varying(255),
     "Manf" character varying(255),
     "ItemNo" character varying(255),
@@ -472,7 +472,7 @@ ALTER TABLE public."tblSKU" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblSKUClass" (
-    "SKUClassID" integer,
+    "SKUClassID" integer primary key,
     "SKUClassDesc" character varying(255)
 );
 
@@ -484,7 +484,7 @@ ALTER TABLE public."tblSKUClass" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblSKUCustInfo" (
-    "SKUCustInfoID" integer,
+    "SKUCustInfoID" integer primary key,
     "SKUID" integer,
     "CustID" integer,
     "SKUOnly" boolean,
@@ -502,7 +502,7 @@ ALTER TABLE public."tblSKUCustInfo" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblShipper" (
-    "ShipID" integer,
+    "ShipID" integer primary key,
     "ShipName" character varying(255),
     "ShipFIrst" character varying(255),
     "ShipLast" character varying(255),
@@ -528,7 +528,7 @@ ALTER TABLE public."tblShipper" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblSupplier" (
-    "SplrID" integer,
+    "SplrID" integer primary key,
     "SplrName" character varying(255),
     "SplrFIrst" character varying(255),
     "SplrLast" character varying(255),
@@ -560,7 +560,7 @@ ALTER TABLE public."tblSupplier" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblSupplierPmts" (
-    "SPmtID" integer,
+    "SPmtID" integer primary key,
     "SPmtDate" timestamp with time zone,
     "SPmtBatch" character varying(255)
 );
@@ -573,7 +573,7 @@ ALTER TABLE public."tblSupplierPmts" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblSupplierPmtsItems" (
-    "SPmtsItemsID" integer,
+    "SPmtsItemsID" integer primary key,
     "SPmtsID" integer,
     "POItemsID" integer,
     "SPmtsTotal" double precision
@@ -587,7 +587,7 @@ ALTER TABLE public."tblSupplierPmtsItems" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblTaxJurisdiction" (
-    "TJID" integer,
+    "TJID" integer primary key,
     "JurisdictionCode" character varying(255),
     "JurisdictionName" character varying(255),
     "RateEffDate" timestamp with time zone,
@@ -613,7 +613,7 @@ ALTER TABLE public."tblUpdateNA" OWNER TO au_audit;
 --
 
 CREATE TABLE public."tblVendor" (
-    "VendorID" integer,
+    "VendorID" integer primary key,
     "VendorName" character varying(255)
 );
 
