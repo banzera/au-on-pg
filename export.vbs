@@ -1,6 +1,6 @@
 Option Compare Database
 
-Const DSN As String = "AuditPG"
+Const DSN As String = ""
 
 Public Function dataTables() As Collection
 
@@ -100,9 +100,9 @@ End Function
 
 Public Function exportTable(tbl As String)
 
-    sql = "INSERT INTO public_" & tbl & " SELECT " & tbl & ".* FROM " + tbl
-    Debug.Print sql
-    DoCmd.RunSQL sql
+    SQL = "INSERT INTO public_" & tbl & " SELECT " & tbl & ".* FROM " + tbl
+    Debug.Print SQL
+    DoCmd.RunSQL SQL
 
 End Function
 
@@ -126,4 +126,41 @@ errHandler:
 
 End Function
 
+Public Function dumpTable(tableName As String)
 
+    Debug.Print "Dumping table " & tableName
+    t = Now
+
+    dstFile = "\\tsclient\au\dumps\" & tableName & ".csv"
+    srcFile = "c:\temp\" & tableName & ".csv"
+
+    DoCmd.TransferText acExportDelim, , tableName, srcFile, , , 65001
+    FileCopy srcFile, dstFile
+
+    reportTimeFrom (t)
+End Function
+
+Public Function dumpTables()
+    On Error GoTo errHandler
+    t = Now
+    DoCmd.SetWarnings False
+
+    For Each Table In dataTables
+        dumpTable (Table)
+    Next
+
+    reportTimeFrom (t)
+
+    DoCmd.SetWarnings True
+
+    Exit Function
+
+errHandler:
+    Resume Next
+
+End Function
+
+Public Function reportTimeFrom(t As Date)
+    delta_t = (Now - t) * 24 * 3600
+    Debug.Print "Done in " & delta_t & " seconds"
+End Function
