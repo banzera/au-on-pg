@@ -1,4 +1,3 @@
-\timing off
 create index index_tblanalysis_on_analysissplrid on tblAnalysis (AnalysisSplrID);
 create index index_tblanalysis_on_customerid     on tblAnalysis (CustomerID);
 
@@ -42,8 +41,6 @@ create index index_tblpreorderitems_on_preorderitemcode on tblPreOrderItems (Pre
   create index index_tblPurchaseOrder_on_POBatch on tblPurchaseOrder (POBatch);
   create index index_tblPurchaseOrder_on_PODatePaid on tblPurchaseOrder (PODatePaid);
   create index index_tblPurchaseOrder_on_POMethodPaid on tblPurchaseOrder (POMethodPaid);
-  -- skipping Primary Key index
-  create index index_tblPurchaseOrder_on_SplrID on tblPurchaseOrder (SplrID);
   create index index_tblPurchaseOrder_on_SplrID on tblPurchaseOrder (SplrID);
 -- Indexes for tblPurchaseOrderItems
   -- skipping Primary Key index
@@ -73,7 +70,7 @@ create index index_tblpreorderitems_on_preorderitemcode on tblPreOrderItems (Pre
 -- Indexes for tblSupplierPmtsItems
   create index index_tblSupplierPmtsItems_on_POItemsID on tblSupplierPmtsItems (POItemsID);
   -- skipping Primary Key index
-  create index index_tblSupplierPmtsItems_on_POItemsID on tblSupplierPmtsItems (POItemsID);
+  -- create index index_tblSupplierPmtsItems_on_POItemsID on tblSupplierPmtsItems (POItemsID);
   create index index_tblSupplierPmtsItems_on_SPmtsID on tblSupplierPmtsItems (SPmtsID);
 -- Indexes for tblTaxJurisdiction
   create index index_tblTaxJurisdiction_on_JurisdictionCode on tblTaxJurisdiction (JurisdictionCode);
