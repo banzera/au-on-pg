@@ -1,6 +1,7 @@
 Option Compare Database
 
 Const DSN As String = ""
+Const TABLE_EXPORT_DESTINATION As String = ""
 
 Public Function dataTables() As Collection
 
@@ -59,7 +60,7 @@ Public Function linkTable(tableName As String)
          DatabaseType:="ODBC Database", _
          DatabaseName:="ODBC;DSN=" & DSN, _
          ObjectType:=acTable, _
-         Source:=tableName, _
+         Source:=Strings.LCase(tableName), _
          Destination:=tableName
 
 End Function
@@ -131,11 +132,16 @@ Public Function dumpTable(tableName As String)
     Debug.Print "Dumping table " & tableName
     t = Now
 
-    dstFile = "\\tsclient\au\dumps\" & tableName & ".csv"
+    dstFile = TABLE_EXPORT_DESTINATION & tableName & ".csv"
     srcFile = "c:\temp\" & tableName & ".csv"
 
+    ' Export the data
     DoCmd.TransferText acExportDelim, , tableName, srcFile, , , 65001
-    FileCopy srcFile, dstFile
+
+    ' Copy it if a destination is specified
+    If Len(TABLE_EXPORT_DESTINATION) > 0 Then
+        FileCopy srcFile, dstFile
+    End If
 
     reportTimeFrom (t)
 End Function
@@ -164,3 +170,50 @@ Public Function reportTimeFrom(t As Date)
     delta_t = (Now - t) * 24 * 3600
     Debug.Print "Done in " & delta_t & " seconds"
 End Function
+
+Sub ListForms()
+    Dim frm As Object
+    Dim LiveForm As Form
+
+    For Each frm In CurrentProject.AllForms
+        Debug.Print frm.Name
+        ''To use the form, uncomment
+        DoCmd.OpenForm frm.Name, acViewDesign
+        Set LiveForm = Forms(frm.Name)
+        Debug.Print LiveForm.recordSource
+        Debug.Print
+        ''Do not forget to close when you are done
+        DoCmd.Close acForm, frm.Name
+    Next
+End Sub
+
+Public Sub UpdateFormSource(frmName, recordSource)
+    DoCmd.OpenForm frmName, acViewDesign
+    Set LiveForm = Forms(frmName)
+    LiveForm.recordSource = recordSource
+    DoCmd.Close acForm, frmName, acSaveYes
+End Sub
+
+Public Sub UpdateForms()
+
+    UpdateFormSource "frmSKUSubform1", "public_frm_sku_subform1"
+    UpdateFormSource "frmSKUSubform3", "public_frm_sku_subform3"
+    UpdateFormSource "frmSKUSubform4", "public_qrySKUPOHistAU"
+    UpdateFormSource "frmSKUSubform5", "public_qrySKUPOHistAU2"
+    UpdateFormSource "frmSKUCustInfoSubform1", "public_frm_sku_cust_info_subform1"
+    UpdateFormSource "frmSKUCustInfoSubform2", "public_frm_sku_cust_info_subform2"
+
+End Sub
+
+Public Sub UpdateReportSrouce(rptName, recordSource)
+    DoCmd.OpenReport rptName, acViewDesign
+    Set LiveReport = Reports(rptName)
+    LiveReport.recordSource = recordSource
+    DoCmd.Close acReport, rptName, acSaveYes
+End Sub
+
+Public Sub UpdateReports()
+
+    UpdateReportSrouce "rptOrderItemsOutstanding", "public_qry_order_items_outstanding"
+
+End Sub
