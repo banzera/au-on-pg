@@ -37,6 +37,9 @@ task :bootstrap, [:db_name] => %w[sanitize indexes_ddl load_ddl] do |t, args|
   puts "Loading data"
   `psql -d #{db_name} < ddl/load_data.sql`
 
+  puts "Reseting sequences"
+  `psql -d #{db_name} < ddl/reset_sequences.sql`
+
   puts "Creating indexes/foreign keys"
   `psql -d #{db_name} < ddl/indexes.sql`
   `psql -d #{db_name} < ddl/foreign_keys.sql`
