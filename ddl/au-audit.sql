@@ -1,4 +1,3 @@
-\timing off
 --
 -- PostgreSQL database dump
 --
@@ -34,9 +33,6 @@ CREATE TABLE public.tblAnalysis (
     AnalysisSplrID integer
 );
 
-
-ALTER TABLE public.tblAnalysis OWNER TO au_audit;
-
 --
 -- Name: tblAnalysisItems; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -53,9 +49,6 @@ CREATE TABLE public.tblAnalysisItems (
     SplrID2 integer,
     AnalysisID integer
 );
-
-
-ALTER TABLE public.tblAnalysisItems OWNER TO au_audit;
 
 --
 -- Name: tblBank; Type: TABLE; Schema: public; Owner: au_audit
@@ -90,9 +83,6 @@ CREATE TABLE public.tblBank (
     BankDateModified timestamp with time zone
 );
 
-
-ALTER TABLE public.tblBank OWNER TO au_audit;
-
 --
 -- Name: tblCategory; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -101,9 +91,6 @@ CREATE TABLE public.tblCategory (
     CategoryID integer primary key,
     CategoryDesc character varying(255)
 );
-
-
-ALTER TABLE public.tblCategory OWNER TO au_audit;
 
 --
 -- Name: tblCustomer; Type: TABLE; Schema: public; Owner: au_audit
@@ -156,9 +143,6 @@ CREATE TABLE public.tblCustomer (
     LastRewardDate timestamp with time zone
 );
 
-
-ALTER TABLE public.tblCustomer OWNER TO au_audit;
-
 --
 -- Name: tblDCLocUpdate; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -171,9 +155,6 @@ CREATE TABLE public.tblDCLocUpdate (
     TimeStampRcvd character varying(255),
     DCLoc character varying(255)
 );
-
-
-ALTER TABLE public.tblDCLocUpdate OWNER TO au_audit;
 
 --
 -- Name: tblOrder; Type: TABLE; Schema: public; Owner: au_audit
@@ -200,9 +181,6 @@ CREATE TABLE public.tblOrder (
     OrderConfirmDate timestamp with time zone
 );
 
-
-ALTER TABLE public.tblOrder OWNER TO au_audit;
-
 --
 -- Name: tblOrderDeposit; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -212,9 +190,6 @@ CREATE TABLE public.tblOrderDeposit (
     ODepositDate timestamp with time zone,
     ODepositBatch character varying(255)
 );
-
-
-ALTER TABLE public.tblOrderDeposit OWNER TO au_audit;
 
 --
 -- Name: tblOrderItems; Type: TABLE; Schema: public; Owner: au_audit
@@ -238,9 +213,6 @@ CREATE TABLE public.tblOrderItems (
     OrderRetailTotal double precision
 );
 
-
-ALTER TABLE public.tblOrderItems OWNER TO au_audit;
-
 --
 -- Name: tblOrderPmts; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -250,9 +222,6 @@ CREATE TABLE public.tblOrderPmts (
     OPmtsDate timestamp with time zone,
     OPmtsBatch character varying(255)
 );
-
-
-ALTER TABLE public.tblOrderPmts OWNER TO au_audit;
 
 --
 -- Name: tblOrderPmtsItems; Type: TABLE; Schema: public; Owner: au_audit
@@ -266,9 +235,6 @@ CREATE TABLE public.tblOrderPmtsItems (
     ODepositID integer
 );
 
-
-ALTER TABLE public.tblOrderPmtsItems OWNER TO au_audit;
-
 --
 -- Name: tblPercent; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -276,9 +242,6 @@ ALTER TABLE public.tblOrderPmtsItems OWNER TO au_audit;
 CREATE TABLE public.tblPercent (
     Percent double precision
 );
-
-
-ALTER TABLE public.tblPercent OWNER TO au_audit;
 
 --
 -- Name: tblPreOrder; Type: TABLE; Schema: public; Owner: au_audit
@@ -300,9 +263,6 @@ CREATE TABLE public.tblPreOrder (
     PreOrderCheck timestamp with time zone
 );
 
-
-ALTER TABLE public.tblPreOrder OWNER TO au_audit;
-
 --
 -- Name: tblPreOrderCodes; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -312,9 +272,6 @@ CREATE TABLE public.tblPreOrderCodes (
     PreOrderCode character varying(255),
     PreOrderCodeDesc character varying(255)
 );
-
-
-ALTER TABLE public.tblPreOrderCodes OWNER TO au_audit;
 
 --
 -- Name: tblPreOrderItems; Type: TABLE; Schema: public; Owner: au_audit
@@ -338,9 +295,6 @@ CREATE TABLE public.tblPreOrderItems (
     PreOrderNotes text
 );
 
-
-ALTER TABLE public.tblPreOrderItems OWNER TO au_audit;
-
 --
 -- Name: tblPurchaseOrder; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -363,9 +317,6 @@ CREATE TABLE public.tblPurchaseOrder (
     POSplrOrderNo character varying(255),
     POCheckSentDate timestamp with time zone
 );
-
-
-ALTER TABLE public.tblPurchaseOrder OWNER TO au_audit;
 
 --
 -- Name: tblPurchaseOrderItems; Type: TABLE; Schema: public; Owner: au_audit
@@ -395,9 +346,6 @@ CREATE TABLE public.tblPurchaseOrderItems (
     POOrderRebateNotes character varying(255)
 );
 
-
-ALTER TABLE public.tblPurchaseOrderItems OWNER TO au_audit;
-
 --
 -- Name: tblPurchaseType; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -406,9 +354,6 @@ CREATE TABLE public.tblPurchaseType (
     PurchaseTypeID integer primary key,
     PurchaseType character varying(255)
 );
-
-
-ALTER TABLE public.tblPurchaseType OWNER TO au_audit;
 
 --
 -- Name: tblSKU; Type: TABLE; Schema: public; Owner: au_audit
@@ -465,9 +410,6 @@ CREATE TABLE public.tblSKU (
     SKUNotes text
 );
 
-
-ALTER TABLE public.tblSKU OWNER TO au_audit;
-
 --
 -- Name: tblSKUClass; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -476,9 +418,6 @@ CREATE TABLE public.tblSKUClass (
     SKUClassID integer primary key,
     SKUClassDesc character varying(255)
 );
-
-
-ALTER TABLE public.tblSKUClass OWNER TO au_audit;
 
 --
 -- Name: tblSKUCustInfo; Type: TABLE; Schema: public; Owner: au_audit
@@ -494,9 +433,6 @@ CREATE TABLE public.tblSKUCustInfo (
     SKUNeverDate timestamp with time zone,
     SKUCustNotes text
 );
-
-
-ALTER TABLE public.tblSKUCustInfo OWNER TO au_audit;
 
 --
 -- Name: tblShipper; Type: TABLE; Schema: public; Owner: au_audit
@@ -520,9 +456,6 @@ CREATE TABLE public.tblShipper (
     ShipPrimaryContact1 character varying(255),
     ShipPrimaryContact2 character varying(255)
 );
-
-
-ALTER TABLE public.tblShipper OWNER TO au_audit;
 
 --
 -- Name: tblSupplier; Type: TABLE; Schema: public; Owner: au_audit
@@ -553,9 +486,6 @@ CREATE TABLE public.tblSupplier (
     SplrNotes text
 );
 
-
-ALTER TABLE public.tblSupplier OWNER TO au_audit;
-
 --
 -- Name: tblSupplierPmts; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -565,9 +495,6 @@ CREATE TABLE public.tblSupplierPmts (
     SPmtDate timestamp with time zone,
     SPmtBatch character varying(255)
 );
-
-
-ALTER TABLE public.tblSupplierPmts OWNER TO au_audit;
 
 --
 -- Name: tblSupplierPmtsItems; Type: TABLE; Schema: public; Owner: au_audit
@@ -579,9 +506,6 @@ CREATE TABLE public.tblSupplierPmtsItems (
     POItemsID integer,
     SPmtsTotal double precision
 );
-
-
-ALTER TABLE public.tblSupplierPmtsItems OWNER TO au_audit;
 
 --
 -- Name: tblTaxJurisdiction; Type: TABLE; Schema: public; Owner: au_audit
@@ -595,9 +519,6 @@ CREATE TABLE public.tblTaxJurisdiction (
     TaxRate real
 );
 
-
-ALTER TABLE public.tblTaxJurisdiction OWNER TO au_audit;
-
 --
 -- Name: tblUpdateNA; Type: TABLE; Schema: public; Owner: au_audit
 --
@@ -605,9 +526,6 @@ ALTER TABLE public.tblTaxJurisdiction OWNER TO au_audit;
 CREATE TABLE public.tblUpdateNA (
     SKUID integer
 );
-
-
-ALTER TABLE public.tblUpdateNA OWNER TO au_audit;
 
 --
 -- Name: tblVendor; Type: TABLE; Schema: public; Owner: au_audit
@@ -617,9 +535,6 @@ CREATE TABLE public.tblVendor (
     VendorID integer primary key,
     VendorName character varying(255)
 );
-
-
-ALTER TABLE public.tblVendor OWNER TO au_audit;
 
 --
 -- PostgreSQL database dump complete
