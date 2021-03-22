@@ -21,5 +21,8 @@ DEPENDENCIES
   psych (~> 3.3)
   rake
 
+RUBY VERSION
+   ruby 2.6.6p146
+
 BUNDLED WITH
    1.17.2
