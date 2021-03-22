@@ -19,7 +19,7 @@ MS Access to PostgresQL Migration
   - Open Application 'ODBC Data Sources (64-bit)'
   - Choose 'System DSN' tab
   - Click 'Add'
-    - Choose PostgreSQL ANSI(x64)
+    - Choose PostgreSQL Unicode(x64)  NB: Unicode vs. ANSI is a critical distintion!
     - Data Source: <choose name>
     - Database: <actual DB name on server>
     - SSL Mode: prefer
@@ -53,17 +53,35 @@ or
   - Open a console at the location of this project
   - Run the following:
 
-    ``` $ rake boostrap[<dbname>] ```
+    ``` $ rake db:boostrap[<dbname>] ```
 
 This will drop any existing DB with name of <dbname> before creating it and
 loading the schema/indexes
 
 ## To Initialize a Heroku instance:
 
-  ``` $ rake  rebuild_heroku[<dbname>] ```
+  ``` $ rake  heroku:rebuild[<dbname>] ```
 
+This will reset the database attached to the configured Heroku applition and push
+the named database up to Heroku
 
-## To Link An Access DB to an (external) PostgreSQL DB:
+## To Link an Access DB to an (external) PostgreSQL DB:
 
-  WIP
+  Before linking tables to the reomote datasource, the internal tables must be dropped.
+  This can be done by importing the `export.vbs` into the Access DB as a module and invoking
+  the routine `export.dropTables` from the immediate window of the VBA console.
 
+  Additionally, before linking to external data via the `export.vbs` module, be sure to set the 
+  value for the DSN constant at the top of the module definition. The value should be that of the
+  name of the System DSN configured previously. 
+
+  To link tables in, execute `export.linkTables` from the immediate window of the VBA console.
+
+  > Note that the user will be prompted to specify the primary key field for a couple tables (tblPercent, tblUpdateNA)
+
+  To link the views, execute `export.linkViews` from the immediate window of the VBA console.
+
+  > Note that by their nature, a database view doesn't have a defined primary key, so user will be prompted to specify
+  > unique row identifier for each linked view. This is generally the `skuid` or the `%itemid` field, but it varies
+  > for each view.
+  
