@@ -240,7 +240,7 @@ CREATE TABLE public.tblOrderPmtsItems (
 --
 
 CREATE TABLE public.tblPercent (
-    Percent double precision
+    Percent double precision primary key
 );
 
 --
@@ -524,7 +524,7 @@ CREATE TABLE public.tblTaxJurisdiction (
 --
 
 CREATE TABLE public.tblUpdateNA (
-    SKUID integer
+    SKUID integer primary key
 );
 
 --
