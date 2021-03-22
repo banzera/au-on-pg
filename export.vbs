@@ -49,11 +49,9 @@ Public Function printTables()
     For Each Table In dataTables()
         Debug.Print Table
     Next
-
 End Function
 
 Public Function linkTable(tableName As String)
-
     Debug.Print "Linking table " & tableName
 
     DoCmd.TransferDatabase TransferType:=acLink, _
@@ -62,7 +60,6 @@ Public Function linkTable(tableName As String)
          ObjectType:=acTable, _
          Source:=Strings.LCase(tableName), _
          Destination:=tableName
-
 End Function
 
 Public Function linkTables()
@@ -77,6 +74,39 @@ Public Function linkTables()
 LinkTables_Error:
     Debug.Print Err.Number & " " & Err.Description
     Resume Next
+End Function
+
+Public Function linkView(viewName As String)
+    Debug.Print "Linking view " & viewName
+
+    DoCmd.TransferDatabase TransferType:=acLink, _
+         DatabaseType:="ODBC Database", _
+         DatabaseName:="ODBC;DSN=" & DSN, _
+         ObjectType:=acTable, _
+         Source:=Strings.LCase(viewName)
+End Function
+
+Public Function linkViews()
+   linkView ("frm_preorder_subform1")
+   linkView ("frm_preorder_subform2")
+   linkView ("frm_preorder_subform3")
+   linkView ("frm_preorder_subform4")
+   linkView ("frm_preorder_subform5")
+   linkView ("frm_preorder_subform6")
+   linkView ("frm_sku_cust_info_subform1")
+   linkView ("frm_sku_cust_info_subform2")
+   linkView ("frm_sku_subform1")
+   linkView ("frm_sku_subform3")
+   linkView ("qry_order_items_outstanding")
+   linkView ("qryinventorycounts")
+   linkView ("qryinventorycountsfilter")
+   linkView ("qrypreorderhistoryunion")
+   linkView ("qrypreorderpohistau")
+   linkView ("qrypreorderpohistau2")
+   linkView ("qrypreordersublist")
+   linkView ("qryskuorderhistoryunion")
+   linkView ("qryskupohistau")
+   linkView ("qryskupohistau2")
 End Function
 
 Public Function dropTable(tableName As String)
@@ -196,12 +226,23 @@ End Sub
 
 Public Sub UpdateForms()
 
-    UpdateFormSource "frmSKUSubform1", "public_frm_sku_subform1"
-    UpdateFormSource "frmSKUSubform3", "public_frm_sku_subform3"
-    UpdateFormSource "frmSKUSubform4", "public_qrySKUPOHistAU"
-    UpdateFormSource "frmSKUSubform5", "public_qrySKUPOHistAU2"
-    UpdateFormSource "frmSKUCustInfoSubform1", "public_frm_sku_cust_info_subform1"
-    UpdateFormSource "frmSKUCustInfoSubform2", "public_frm_sku_cust_info_subform2"
+    UpdateFormSource "frmSKUSubform1", "frm_sku_subform1"
+    UpdateFormSource "frmSKUSubform3", "frm_sku_subform3"
+    UpdateFormSource "frmSKUSubform4", "qrySKUPOHistAU"
+    UpdateFormSource "frmSKUSubform5", "qrySKUPOHistAU2"
+    UpdateFormSource "frmSKUCustInfoSubform1", "frm_sku_cust_info_subform1"
+    UpdateFormSource "frmSKUCustInfoSubform2", "frm_sku_cust_info_subform2"
+
+    UpdateFormSource "frmPreOrderSubform1", "frm_preorder_subform1"
+    UpdateFormSource "frmPreOrderSubform2", "frm_preorder_subform2"
+    UpdateFormSource "frmPreOrderSubform3", "frm_preorder_subform3"
+    UpdateFormSource "frmPreOrderSubform4", "frm_preorder_subform4"
+    UpdateFormSource "frmPreOrderSubform5", "frm_preorder_subform5"
+    UpdateFormSource "frmPreOrderSubform6", "frm_preorder_subform6"
+    UpdateFormSource "frmPreOrderSubform8", "frm_preorder_subform6"
+
+
+
 
 End Sub
 
@@ -214,6 +255,8 @@ End Sub
 
 Public Sub UpdateReports()
 
-    UpdateReportSrouce "rptOrderItemsOutstanding", "public_qry_order_items_outstanding"
+    UpdateReportSrouce "rptOrderItemsOutstanding", "qry_order_items_outstanding"
+    ' also need to update the OrderID field to remove the table name reference, and only leave the field name
+    ' grouping and sorting needs to be fixed as well
 
 End Sub
