@@ -1,0 +1,5 @@
+dumps/
+.env
+ddl/load_data.sql
+ddl/indexes.sql
+*.accdb
