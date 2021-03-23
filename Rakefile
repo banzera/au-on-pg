@@ -55,7 +55,9 @@ namespace :db do
 
   task :reset_schema => [:dotenv, :environment] do
     SCHEMA_NAME = 'public'.freeze
+    puts "Dropping schema #{SCHEMA_NAME} on #{parse_database_url[:database]}"
     ActiveRecord::Base.connection.drop_schema SCHEMA_NAME
+    puts "Creating schema #{SCHEMA_NAME} on #{parse_database_url[:database]}"
     ActiveRecord::Base.connection.create_schema SCHEMA_NAME
   end
 
@@ -143,6 +145,7 @@ namespace :ddl do
   desc "Create the DDL for loading the data"
   task :data => 'ddl/load_data.sql'
   file 'ddl/load_data.sql' => dump_files.ext(".clean.csv") do |t|
+    puts "Generating the data import DDL"
     names = Hash[t.sources.map { |s|
       [s.gsub(/dumps\/|.clean.csv/,'') , "'#{s}'"]
     } ]
