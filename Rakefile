@@ -106,6 +106,8 @@ namespace :mdb do
                     #{mdb} #{t} 2> /dev/null \
                                 1> dumps/#{t}.csv`
       end
+      # let the files flush?
+      sleep 1
     end
 
     desc "Dump schema from Access DB"
