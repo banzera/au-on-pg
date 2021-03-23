@@ -49,9 +49,15 @@ namespace :db do
   task :refresh => %w[ddl:indexes
                       mdb:dump:data
                       ddl:data
-                      purge
+                      reset_schema
                       load:schema
                       load:data]
+
+  task :reset_schema => [:dotenv, :environment] do
+    SCHEMA_NAME = 'public'.freeze
+    ActiveRecord::Base.connection.drop_schema SCHEMA_NAME
+    ActiveRecord::Base.connection.create_schema SCHEMA_NAME
+  end
 
   namespace :load do
     desc "Load the schema DDL into a named database"
