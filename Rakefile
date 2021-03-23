@@ -73,6 +73,7 @@ namespace :db do
       puts "Creating indexes/foreign keys"
       `psql #{db} < ddl/indexes.sql`
       `psql #{db} < ddl/foreign_keys.sql`
+      `psql #{db} < ddl/triggers.sql`
     end
   end
 end
