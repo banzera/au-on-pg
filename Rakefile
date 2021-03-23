@@ -36,7 +36,8 @@ namespace :db do
   end
 
   desc "Bootstrap a local PostgreSQL DB"
-  task :bootstrap => %w[ddl:indexes
+  task :bootstrap => %w[dotenv
+                        ddl:indexes
                         drop:_unsafe
                         create
                         mdb:dump:data
@@ -46,7 +47,8 @@ namespace :db do
                       ]
 
   desc "Refresh the data in the database"
-  task :refresh => %w[ddl:indexes
+  task :refresh => %w[dotenv
+                      ddl:indexes
                       mdb:dump:data
                       ddl:data
                       reset_schema
@@ -108,8 +110,6 @@ namespace :mdb do
                     #{mdb} #{t} 2> /dev/null \
                                 1> dumps/#{t}.csv`
       end
-      # let the files flush?
-      sleep 1
     end
 
     desc "Dump schema from Access DB"
@@ -129,12 +129,25 @@ namespace :mdb do
   end
 end
 
-dump_files = Rake::FileList.new("dumps/*.csv") do |fl| fl.exclude /clean/ end
+# DUMP_FILES = Rake::FileList.new("dumps/*.csv") do |fl| fl.exclude /clean/ end
+DUMP_FILES = Rake::FileList.new do |fl|
+  fl.include tables.map { |t| "dumps/#{t}.csv" }
+end
 
 desc "Sanitize the CSV dump files from Access"
-task :sanitize => ['mdb:dump:data', dump_files.ext(".clean.csv")]
+task :sanitize => [:dotenv, DUMP_FILES.ext(".clean-csv")]
 
-rule ".clean.csv" => ".csv" do |t|
+rule ".csv" => mdb do |t|
+  puts "Dumping data in #{mdb} from #{t.name}"
+  table_name = t.name.pathmap('%n')
+  `mdb-export -H -D '%F' -T '%F %T' #{mdb} #{table_name} 1> #{t.name} 2> /dev/null`
+end
+
+def source_for_csv_file(csv_file)
+  DUMP_FILES.detect {|f| f == csv_file.gsub('.clean', '')}
+end
+
+rule ".clean-csv" => ".csv" do |t|
     puts "Cleaning #{t.source}"
     # `sed -E -e 's/\\$//g' -e 's/\\(([0-9]+\\.[0-9]+)\)/-\\1/g' #{t.source} > #{t.name}`
     # `sed -E -e 's/\\$//g' #{t.source} > #{t.name}`
@@ -143,11 +156,11 @@ end
 
 namespace :ddl do
   desc "Create the DDL for loading the data"
-  task :data => 'ddl/load_data.sql'
-  file 'ddl/load_data.sql' => dump_files.ext(".clean.csv") do |t|
+  task :data => %w[dotenv ddl/load_data.sql]
+  file 'ddl/load_data.sql' => DUMP_FILES.ext(".clean-csv") do |t|
     puts "Generating the data import DDL"
     names = Hash[t.sources.map { |s|
-      [s.gsub(/dumps\/|.clean.csv/,'') , "'#{s}'"]
+      [s.gsub(/dumps\/|.clean-csv/,'') , "'#{s}'"]
     } ]
 
     next unless names.any?

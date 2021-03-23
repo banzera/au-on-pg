@@ -4,13 +4,12 @@ module TaskHelpers
     ddl/indexes.sql
     ddl/load_data.sql
     ddl/schema.sql
-    audit.accdb
-    dumps/*.csv
     create_system_dsn.bat
   ]
 
   CLEAN.include %w[
-    dumps/*.clean.csv
+    audit.accdb
+    dumps/*.csv
   ]
 
   def db
