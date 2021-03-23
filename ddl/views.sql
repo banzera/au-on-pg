@@ -17,10 +17,10 @@
   \i queries/qrySKUPOHistAU2.sql
 
   -- used by frmSKUCustInfoSubform1
-  \i queries/frm_sku_cust_info_subform1.sql
+  \i queries/frm_SKU_Cust_Info_Subform1.sql
 
   -- used by frmSKUCustInfoSubform2
-  \i queries/frm_sku_cust_info_subform2.sql
+  \i queries/frm_SKU_Cust_Info_Subform2.sql
 
 -- for orders outstanding report
   \i queries/qry_order_items_outstanding.sql
