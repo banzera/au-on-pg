@@ -37,44 +37,29 @@ create index index_tblpreordercodes_on_preordercode on tblPreOrderCodes (PreOrde
 create index index_tblpreorderitems_on_preorderitemcode on tblPreOrderItems (PreOrderItemCode);
 
 -- Indexes for tblPurchaseOrder
-  create index index_tblPurchaseOrder_on_POAmountPaid on tblPurchaseOrder (POAmountPaid);
-  create index index_tblPurchaseOrder_on_POBatch on tblPurchaseOrder (POBatch);
-  create index index_tblPurchaseOrder_on_PODatePaid on tblPurchaseOrder (PODatePaid);
-  create index index_tblPurchaseOrder_on_POMethodPaid on tblPurchaseOrder (POMethodPaid);
-  create index index_tblPurchaseOrder_on_SplrID on tblPurchaseOrder (SplrID);
+  CREATE  INDEX index_tblPurchaseOrder_on_POAmountPaid ON tblPurchaseOrder (POAmountPaid);
+  CREATE UNIQUE INDEX index_tblPurchaseOrder_on_POBatch ON tblPurchaseOrder (POBatch);
+  CREATE  INDEX index_tblPurchaseOrder_on_PODatePaid ON tblPurchaseOrder (PODatePaid);
+  CREATE  INDEX index_tblPurchaseOrder_on_POMethodPaid ON tblPurchaseOrder (POMethodPaid);
+  CREATE  INDEX index_tblPurchaseOrder_on_SplrID ON tblPurchaseOrder (SplrID);
 -- Indexes for tblPurchaseOrderItems
-  -- skipping Primary Key index
-  create index index_tblPurchaseOrderItems_on_POID on tblPurchaseOrderItems (POID);
-  create index index_tblPurchaseOrderItems_on_SKUID on tblPurchaseOrderItems (SKUID);
 -- Indexes for tblPurchaseType
-  -- skipping Primary Key index
 -- Indexes for tblShipper
-  -- skipping Primary Key index
 -- Indexes for tblSKU
-  create index index_tblSKU_on_ItemNo on tblSKU (ItemNo);
-  -- skipping Primary Key index
-  create index index_tblSKU_on_SKU on tblSKU (SKU);
-  create index index_tblSKU_on_SKUClassID on tblSKU (SKUClassID);
+  CREATE UNIQUE INDEX index_tblSKU_on_ItemNo ON tblSKU (ItemNo);
+  CREATE UNIQUE INDEX index_tblSKU_on_SKU ON tblSKU (SKU);
+  CREATE  INDEX index_tblSKU_on_SKUClassID ON tblSKU (SKUClassID);
 -- Indexes for tblSKUClass
-  -- skipping Primary Key index
 -- Indexes for tblSKUCustInfo
-  create index index_tblSKUCustInfo_on_CustID on tblSKUCustInfo (CustID);
-  -- skipping Primary Key index
-  create index index_tblSKUCustInfo_on_SKUID on tblSKUCustInfo (SKUID);
+  CREATE  INDEX index_tblSKUCustInfo_on_CustID ON tblSKUCustInfo (CustID);
+  CREATE  INDEX index_tblSKUCustInfo_on_SKUID ON tblSKUCustInfo (SKUID);
 -- Indexes for tblSupplier
-  -- skipping Primary Key index
-  create index index_tblSupplier_on_SplrTaxID on tblSupplier (SplrTaxID);
+  CREATE  INDEX index_tblSupplier_on_SplrTaxID ON tblSupplier (SplrTaxID);
 -- Indexes for tblSupplierPmts
-  create index index_tblSupplierPmts_on_SPmtBatch on tblSupplierPmts (SPmtBatch);
-  -- skipping Primary Key index
+  CREATE UNIQUE INDEX index_tblSupplierPmts_on_SPmtBatch ON tblSupplierPmts (SPmtBatch);
 -- Indexes for tblSupplierPmtsItems
-  create index index_tblSupplierPmtsItems_on_POItemsID on tblSupplierPmtsItems (POItemsID);
-  -- skipping Primary Key index
-  -- create index index_tblSupplierPmtsItems_on_POItemsID on tblSupplierPmtsItems (POItemsID);
-  create index index_tblSupplierPmtsItems_on_SPmtsID on tblSupplierPmtsItems (SPmtsID);
+  CREATE  INDEX index_tblSupplierPmtsItems_on_POItemsID ON tblSupplierPmtsItems (POItemsID);
 -- Indexes for tblTaxJurisdiction
-  create index index_tblTaxJurisdiction_on_JurisdictionCode on tblTaxJurisdiction (JurisdictionCode);
-  -- skipping Primary Key index
+  CREATE  INDEX index_tblTaxJurisdiction_on_JurisdictionCode ON tblTaxJurisdiction (JurisdictionCode);
 -- Indexes for tblUpdateNA
 -- Indexes for tblVendor
-  -- skipping Primary Key index

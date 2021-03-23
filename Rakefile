@@ -165,8 +165,9 @@ namespace :ddl do
           unless "PrimaryKey" == id || attrs["Foreign"]
             field_list    = attrs["Fields"].map(&:keys).flatten
             # quoted_fields = field_list.map {|f| %Q{"#{f}"} }
+            unique = attrs["Unique"] ? 'UNIQUE' : ''
 
-            f.puts %Q|  create index index_#{table}_on_#{field_list.join('_')} on "#{table}" (#{field_list.join(',')}); |
+            f.puts %Q|  CREATE #{unique} INDEX index_#{table}_on_#{field_list.join('_')} ON #{table} (#{field_list.join(',')}); |
           end
         end
       end
