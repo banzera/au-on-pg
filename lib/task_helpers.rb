@@ -1,15 +1,9 @@
 module TaskHelpers
 
   CLOBBER.include %w[
-    ddl/indexes.sql
     ddl/load_data.sql
     ddl/schema.sql
     create_system_dsn.bat
-  ]
-
-  CLEAN.include %w[
-    audit.accdb
-    dumps/*.csv
   ]
 
   def db

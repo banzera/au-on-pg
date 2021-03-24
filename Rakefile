@@ -9,6 +9,10 @@ include TaskHelpers
 
 RANDOM_DB_NAME = ENV['DB_NAME'] || SecureRandom.hex(4)
 
+DUMP_FILES = Rake::FileList.new do |fl|
+  fl.include tables.map { |t| "dumps/#{t}.csv" }
+end
+
 namespace :heroku do
   desc "Reset the remote database and push a named local database"
   task :rebuild, [:db_name]  do |t, args|
@@ -37,21 +41,15 @@ namespace :db do
 
   desc "Bootstrap a local PostgreSQL DB"
   task :bootstrap => %w[
-                        drop:_unsafe
+                        drop
                         create
-                        mdb:dump:data
                         ddl:data
                         load:schema
                         load:data
                       ]
 
   desc "Refresh the data in the database"
-  task :refresh => %w[
-                      mdb:dump:data
-                      ddl:data
-                      reset_schema
-                      load:schema
-                      load:data]
+  task :refresh => %w[reset_schema load:schema load:data]
 
   task :reset_schema => :environment do
     SCHEMA_NAME = 'public'.freeze
@@ -71,7 +69,7 @@ namespace :db do
     end
 
     desc "Load the prepared dataset into a named database"
-    task :data => %w['ddl:data'] do |t, args|
+    task :data => %w[ddl:data] do |t, args|
       puts "Loading data"
       `psql #{db} < ddl/load_data.sql`
 
@@ -95,6 +93,7 @@ namespace :mdb do
     puts "Fetching Access DB from #{uri}"
     Down.download uri, destination: t.name
   end
+  CLEAN.include mdb
 
   namespace :dump do
     desc "Dump data from Access DB"
@@ -112,24 +111,19 @@ namespace :mdb do
 
     desc "Dump schema from Access DB"
     task :schema => 'ddl/schema.sql'
-    file 'ddl/schema.sql' => mdb do
-      puts "dumping schema"
+    file 'ddl/schema.sql' => mdb do |t|
+      puts "Dumping schema from #{mdb}"
 
       `mdb-schema          \
           --indexes        \
           --comments       \
           --default-values \
           --not-null       \
-          audit.accdb postgres 2> /dev/null \
-                               1> ddl/schema.sql
+          #{mdb} postgres 2> /dev/null \
+                          1> #{t.name}
         `
     end
   end
-end
-
-# DUMP_FILES = Rake::FileList.new("dumps/*.csv") do |fl| fl.exclude /clean/ end
-DUMP_FILES = Rake::FileList.new do |fl|
-  fl.include tables.map { |t| "dumps/#{t}.csv" }
 end
 
 desc "Sanitize the CSV dump files from Access"
@@ -140,17 +134,13 @@ rule ".csv" => mdb do |t|
   table_name = t.name.pathmap('%n')
   `mdb-export -H -D '%F' -T '%F %T' #{mdb} #{table_name} 1> #{t.name} 2> /dev/null`
 end
-
-def source_for_csv_file(csv_file)
-  DUMP_FILES.detect {|f| f == csv_file.gsub('.clean', '')}
-end
+CLEAN.include 'dumps/*.csv'
 
 rule ".clean-csv" => ".csv" do |t|
-    puts "Cleaning #{t.source}"
-    # `sed -E -e 's/\\$//g' -e 's/\\(([0-9]+\\.[0-9]+)\)/-\\1/g' #{t.source} > #{t.name}`
-    # `sed -E -e 's/\\$//g' #{t.source} > #{t.name}`
-    `sed -E -e 's/\"1900-01-00 00:00:00\"//g' #{t.source} > #{t.name}`
+  puts "Cleaning #{t.source}"
+  `sed -E -e 's/\"1900-01-00 00:00:00\"//g' #{t.source} > #{t.name}`
 end
+CLEAN.include 'dumps/*.clean-csv'
 
 namespace :ddl do
   desc "Create the DDL for loading the data"
@@ -161,7 +151,7 @@ namespace :ddl do
       [s.gsub(/dumps\/|.clean-csv/,'') , "'#{s}'"]
     } ]
 
-    next unless names.any?
+    puts "No dump files to process" and next unless names.any?
 
     j1 = names.keys.map(&:length).max + 1
     j2 = names.values.map(&:length).max + 1
