@@ -1,5 +1,5 @@
 Bundler.require(:default)
-require 'dotenv/tasks'
+require 'dotenv/load'
 require 'rake/clean'
 require 'securerandom'
 require_relative 'lib/db'
@@ -24,19 +24,19 @@ end
 
 namespace :db do
   desc "Print active DB URL components"
-  task details: :dotenv do
+  task :details do
     puts parse_database_url
   end
 
   desc "List active DB tables"
-  task list_tables: :dotenv do
+  task :list_tables do
     puts "Listing defined relations in #{db}"
     cmd = %Q|psql -c '\\d' #{db}|
     `#{cmd}`
   end
 
   desc "Bootstrap a local PostgreSQL DB"
-  task :bootstrap => %w[dotenv
+  task :bootstrap => %w[
                         ddl:indexes
                         drop:_unsafe
                         create
@@ -47,7 +47,7 @@ namespace :db do
                       ]
 
   desc "Refresh the data in the database"
-  task :refresh => %w[dotenv
+  task :refresh => %w[
                       ddl:indexes
                       mdb:dump:data
                       ddl:data
@@ -55,7 +55,7 @@ namespace :db do
                       load:schema
                       load:data]
 
-  task :reset_schema => [:dotenv, :environment] do
+  task :reset_schema => :environment do
     SCHEMA_NAME = 'public'.freeze
     puts "Dropping schema #{SCHEMA_NAME} on #{parse_database_url[:database]}"
     ActiveRecord::Base.connection.drop_schema SCHEMA_NAME
@@ -65,7 +65,7 @@ namespace :db do
 
   namespace :load do
     desc "Load the schema DDL into a named database"
-    task schema: :dotenv do |t, args|
+    task :schema do |t, args|
       puts "Loading schema"
       `psql #{db} < ddl/au-audit.sql`
       `psql #{db} < ddl/sequences.sql`
@@ -73,7 +73,7 @@ namespace :db do
     end
 
     desc "Load the prepared dataset into a named database"
-    task data: [:dotenv,  'ddl:data'] do |t, args|
+    task :data => %w['ddl:data'] do |t, args|
       puts "Loading data"
       `psql #{db} < ddl/load_data.sql`
 
@@ -90,7 +90,7 @@ end
 
 namespace :mdb do
   desc "Fetch latest Access DB"
-  task :fetch => [:dotenv, mdb]
+  task :fetch => mdb
   file mdb do |t|
     require "down"
     uri = ENV['ACCDB_URL']
@@ -100,7 +100,7 @@ namespace :mdb do
 
   namespace :dump do
     desc "Dump data from Access DB"
-    task :data => mdb do
+    task :all => [mdb, 'schema'] do
       puts "Dumping data from #{mdb}"
       tables.each do |t|
                     # -Q \
@@ -135,7 +135,7 @@ DUMP_FILES = Rake::FileList.new do |fl|
 end
 
 desc "Sanitize the CSV dump files from Access"
-task :sanitize => [:dotenv, DUMP_FILES.ext(".clean-csv")]
+task :sanitize => DUMP_FILES.ext(".clean-csv")
 
 rule ".csv" => mdb do |t|
   puts "Dumping data in #{mdb} from #{t.name}"
@@ -156,7 +156,7 @@ end
 
 namespace :ddl do
   desc "Create the DDL for loading the data"
-  task :data => %w[dotenv ddl/load_data.sql]
+  task :data => %w[ddl/load_data.sql]
   file 'ddl/load_data.sql' => DUMP_FILES.ext(".clean-csv") do |t|
     puts "Generating the data import DDL"
     names = Hash[t.sources.map { |s|
