@@ -1,1 +1,366 @@
-none:
+tblPurchaseOrder:
+  POAmountPaid:
+    Clustered:  False
+    DistinctCount:  189
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   POAmountPaid
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - POAmountPaid:  Ascending
+  POBatch:
+    Clustered:  False
+    DistinctCount:  711
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   POBatch
+    Primary:  False
+    Required:   False
+    Unique:   True
+    Fields:
+      - POBatch: Ascending
+  PODatePaid:
+    Clustered:  False
+    DistinctCount:  19
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PODatePaid
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - PODatePaid:  Ascending
+  POMethodPaid:
+    Clustered:  False
+    DistinctCount:  3
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   POMethodPaid
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - POMethodPaid:  Ascending
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  711
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - POID:  Ascending
+  SupplierID:
+    Clustered:  False
+    DistinctCount:  14
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   SupplierID
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - SplrID:  Ascending
+  tblSuppliertblPurchaseOrder:
+    Clustered:  False
+    DistinctCount:  14
+    Foreign:  True
+    IgnoreNulls:  False
+    Name:   tblSuppliertblPurchaseOrder
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - SplrID:  Ascending
+
+tblPurchaseOrderItems:
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  2490
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - POItemsID: Ascending
+  tblPurchaseOrdertblPurchaseOrderItems:
+    Clustered:  False
+    DistinctCount:  711
+    Foreign:  True
+    IgnoreNulls:  False
+    Name:   tblPurchaseOrdertblPurchaseOrderItems
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - POID:  Ascending
+  tblSKUtblPurchaseOrderItems:
+    Clustered:  False
+    DistinctCount:  1575
+    Foreign:  True
+    IgnoreNulls:  False
+    Name:   tblSKUtblPurchaseOrderItems
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - SKUID: Ascending
+
+tblPurchaseType:
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  4
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - PurchaseTypeID:  Ascending
+
+tblShipper:
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  0
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - ShipID:  Ascending
+
+tblSKU:
+  ItemNo:
+    Clustered:  False
+    DistinctCount:  4442
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   ItemNo
+    Primary:  False
+    Required:   False
+    Unique:   True
+    Fields:
+      - ItemNo:  Ascending
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  4442
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - SKUID: Ascending
+  SKU:
+    Clustered:  False
+    DistinctCount:  3382
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   SKU
+    Primary:  False
+    Required:   False
+    Unique:   True
+    Fields:
+      - SKU: Ascending
+  SKUClassID:
+    Clustered:  False
+    DistinctCount:  40
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   SKUClassID
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - SKUClassID:  Ascending
+
+tblSKUClass:
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  50
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - SKUClassID:  Ascending
+
+tblSKUCustInfo:
+  CustID:
+    Clustered:  False
+    DistinctCount:  7
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   CustID
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - CustID:  Ascending
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  11
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - SKUCustInfoID: Ascending
+  SKUID:
+    Clustered:  False
+    DistinctCount:  7
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   SKUID
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - SKUID: Ascending
+
+tblSupplier:
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  53
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - SplrID:  Ascending
+  SplrTaxID:
+    Clustered:  False
+    DistinctCount:  1
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   SplrTaxID
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - SplrTaxID: Ascending
+
+tblSupplierPmts:
+  POBatch:
+    Clustered:  False
+    DistinctCount:  53
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   POBatch
+    Primary:  False
+    Required:   False
+    Unique:   True
+    Fields:
+      - SPmtBatch: Ascending
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  53
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - SPmtID:  Ascending
+
+tblSupplierPmtsItems:
+  POID1:
+    Clustered:  False
+    DistinctCount:  1994
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   POID1
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - POItemsID: Ascending
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  1994
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - SPmtsItemsID:  Ascending
+  tblPurchaseOrderItemstblSupplierPmtsIte:
+    Clustered:  False
+    DistinctCount:  1994
+    Foreign:  True
+    IgnoreNulls:  False
+    Name:   tblPurchaseOrderItemstblSupplierPmtsItems
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - POItemsID: Ascending
+  tblSupplierPmtstblSupplierPmtsItems:
+    Clustered:  False
+    DistinctCount:  53
+    Foreign:  True
+    IgnoreNulls:  False
+    Name:   tblSupplierPmtstblSupplierPmtsItems
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - SPmtsID: Ascending
+
+tblTaxJurisdiction:
+  JurisdictionCode:
+    Clustered:  False
+    DistinctCount:  8
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   JurisdictionCode
+    Primary:  False
+    Required:   False
+    Unique:   False
+    Fields:
+      - JurisdictionCode:  Ascending
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  8
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - TJID:  Ascending
+
+tblUpdateNA:
+
+tblVendor:
+  PrimaryKey:
+    Clustered:  False
+    DistinctCount:  31
+    Foreign:  False
+    IgnoreNulls:  False
+    Name:   PrimaryKey
+    Primary:  True
+    Required:   True
+    Unique:   True
+    Fields:
+      - VendorID:  Ascending

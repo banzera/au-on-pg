@@ -37,7 +37,6 @@ namespace :db do
 
   desc "Bootstrap a local PostgreSQL DB"
   task :bootstrap => %w[
-                        ddl:indexes
                         drop:_unsafe
                         create
                         mdb:dump:data
@@ -48,7 +47,6 @@ namespace :db do
 
   desc "Refresh the data in the database"
   task :refresh => %w[
-                      ddl:indexes
                       mdb:dump:data
                       ddl:data
                       reset_schema
