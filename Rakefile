@@ -190,7 +190,7 @@ end
 desc "Create a batch file to install a system DSN for the Heroku DB"
 task :odbcconf => "create_system_dsn.bat"
 file "create_system_dsn.bat" do |t|
-  dsn = ENV.fetch('DSN_NAME', 'audit-pg_heroku')
+  dsn = ENV.fetch('DSN_NAME', 'heroku_audit-pg')
 
   puts "Getting credentials from Heroku..."
   url = `heroku pg:credentials:url | grep postgres`
