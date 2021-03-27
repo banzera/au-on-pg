@@ -1,1 +1,1 @@
-console: rake -T
+console: rake db:refresh
