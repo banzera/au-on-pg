@@ -45,4 +45,7 @@ UPDATE tblsku SET tsv =
     to_tsvector('pg_catalog.english', coalesce(VSKU10::text, '')) ||
     to_tsvector('pg_catalog.english', coalesce(SKUNotes::text, ''))
 
+;
+DROP VIEW frm_sku_subform1;
+\i queries/frm_sku_subform1.sql
 
