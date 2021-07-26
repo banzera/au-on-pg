@@ -140,7 +140,9 @@ CREATE TABLE public.tblCustomer (
     CustCCAuth boolean,
     CustCCLast4 character varying(255),
     CustTaxJurisID integer,
-    LastRewardDate timestamp with time zone
+    LastRewardDate timestamp with time zone,
+    CustHSAcct character varying(255),
+    Discontinued boolean
 );
 
 --
@@ -533,7 +535,8 @@ CREATE TABLE public.tblUpdateNA (
 
 CREATE TABLE public.tblVendor (
     VendorID integer primary key,
-    VendorName character varying(255)
+    VendorName character varying(255),
+    VendorAbbr character varying(255)
 );
 
 --
