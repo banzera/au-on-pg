@@ -142,7 +142,15 @@ CREATE TABLE public.tblCustomer (
     CustTaxJurisID integer,
     LastRewardDate timestamp with time zone,
     CustHSAcct character varying(255),
-    Discontinued boolean
+    Discontinued boolean,
+    CustTYFirstName character varying(255),
+    CustTYLastName character varying(255),
+    CustTYAddress character varying(255),
+    CustTYCity character varying(255),
+    CustTYST character varying(255),
+    CustTYZip character varying(255),
+    CustTYPhone character varying(255),
+    CustTYEmail character varying(255)
 );
 
 --
